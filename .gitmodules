@@ -1,0 +1,3 @@
+[submodule "latex-solarized"]
+	path = latex-solarized
+	url = ./latex-solarized
