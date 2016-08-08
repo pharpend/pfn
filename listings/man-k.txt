@@ -1,0 +1,10 @@
+$ man -k python3
+2to3 (1)             - Python2 to Python3 converter
+2to3-2.7 (1)         - Python2 to Python3 converter
+2to3-3.5 (1)         - Python2 to Python3 converter
+dh_python3 (1)       - calculates Python dependencies, adds maintainer scripts to byte compile files, etc.
+py3versions (1)      - print python3 version information
+python3 (1)          - an interpreted, interactive, object-oriented programming language
+python3.5 (1)        - an interpreted, interactive, object-oriented programming language
+python3.5m (1)       - an interpreted, interactive, object-oriented programming language
+python3m (1)         - an interpreted, interactive, object-oriented programming language

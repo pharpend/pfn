@@ -1,0 +1,5 @@
+$ python3
+Python 3.5.2 (default, Jul  5 2016, 12:43:10) 
+[GCC 5.4.0 20160609] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 

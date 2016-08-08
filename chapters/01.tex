@@ -1,0 +1,173 @@
+\chapter{Getting set up}
+
+Hi there, this is a beginner's guide to Python 3. In this chapter,
+we're just going to get your computer set up, and run a very simple
+Python program on it.
+
+You will want to install all of these things:
+
+\begin{enumerate}
+\item the Python 3 environment;
+\item a plain-text editor;
+\item if you're on Windows, Cygwin: \url{https://www.cygwin.com/}.
+\end{enumerate}
+
+If you're on a UNIX-like system, such as Linux, OS X, or a BSD system,
+Python is probably already installed, and a text editor and terminal
+emulator are almost certainly installed. The only hiccup might be the
+version of Python.
+
+On Windows, you'll want to download the latest Python 3 release from
+here: \url{https://www.python.org/downloads/windows/}. (See
+\cref{fig:python3-windows}.)
+
+As for a ``plain-text editor'', that means a program to edit text
+files that is critically \xtb{not a word processor}. There are
+hundreds of text editors, and experienced programmers are usually
+rather opinionated on their favorite text editor.
+
+\begin{enumerate}
+\item For the average new programmer, I'd recommend Atom:
+  \url{https://atom.io/}. Atom is not a terrible choice for
+  experienced developers, either.
+\item If you are willing to learn how to use it, Vim is an excellent
+  terminal-based editor: \url{http://www.vim.org/}. The
+  poorly-designed website is not reflective of the quality of the text
+  editor. Vim is probably the most popular text editor.
+\item If you have several months to spare, and are already an
+  experienced programmer, GNU Emacs is also very popular:
+  \url{http://www.gnu.org/software/emacs/}. (This is what I use). In
+  this case, the fast, and well-designed website is not reflective of
+  the quality of the text editor.
+\item If you are on Windows, I've heard good things about Notepad++:
+  \url{https://notepad-plus-plus.org/}, although I've never tried it
+  for more than an hour or two.
+\end{enumerate}
+
+\begin{figure}[ht]
+  \centering
+  \answergraph{images/python3-windows-gimped.png}
+  \caption{Link you should click on for Python 3, iff you're using
+    Windows.}
+  \label{fig:python3-windows}
+\end{figure}
+
+Throughout this book, you'll need to run a lot of commands in the
+terminal. On UNIX-like systems, you can open an application called
+``Terminal,'' ``Terminal Emulator,'' or some variant thereof, and use
+that. On Windows, use Cygwin. I will prefix commands you should run in
+the terminal with a dollar sign. Expected output of the program
+follows in subsequent lines.
+
+\lstin{uname.txt}
+
+\begin{remark}
+  The red arrow just indicates that the previous line overflows onto
+  the next line. It does not indicate an actual output character.
+\end{remark}
+
+\begin{remark}
+  It's extremely important that you type in code examples and
+  terminal commands yourself, and observe the results, rather than
+  glancing at them in the book, or copying \& pasting.
+\end{remark}
+
+To test to see if Python 3 is installed on your system, first run
+\code{which python} in a terminal.
+
+\lstin{which-python.txt}
+
+Then, run \code{python --version} to make sure it's using Python 3:
+
+\lstin{python-version.txt}
+
+On my system (Ubuntu 16.04), Python 2 is still the default. However,
+the command \code{python3} gets me to Python 3.
+
+\lstin{python3-version.txt}
+
+The command to run Python 3 will vary from one system to another, so
+therefore I will just say ``run the appropriate \code{python}
+command,'' to refer to \code{python}, \code{python3}, or whatever it
+is on your system.
+
+If you run \code{python3} with no arguments, you'll get Python's
+\term{Read/Eval/Print Loop}, or \term{REPL}.
+
+\lstin{python3-repl.txt}
+
+\begin{remark}
+  The three `greater-than' signs are the standard Python REPL
+  prompt. Therefore, if I want to indicate that you should type
+  something into the Python REPL, I'll just prefix the line with
+  \code{>>>}.
+\end{remark}
+
+At the REPL, you can type in a line of Python code. Python will
+evaluate it and print the result. Then, under most circumstances,
+Python will prompt you for another line of code.\footnote{The
+  circumstance in which Python won't ask you for a new line of code is
+  if you tell Python to quit via the \code{exit} command.} Examples:
+
+\lstpy{hello-world-and-such.txt}
+
+\begin{remark}
+  The syntax highlighting is just there to help with readability; it
+  doesn't actually mean anything.
+\end{remark}
+
+\subsection{Saving in files}
+
+You can type entire programs into the REPL, and it will evaluate
+them. However, you will usually want to save them in a file, so you
+can use them later, and not have to type them out every time. Before
+we do that, you need a small amount of background information.
+
+I'd recommend creating a special directory for the programs in this
+text. If you can't think of a name, I'd suggest \code{code}. To make a
+directory, use the \code{mkdir} command:
+
+\lstin{mkdir.txt}
+
+There are a lot of UNIX commands, but here are the commands you'll
+actually need to know as we move forward:
+
+\begin{enumerate}
+\item \code{mkdir} is for ``make directory.''
+\item \code{cd} is for ``change directory.''
+\item \code{pwd} is for ``print working directory.'' (Prints the
+  current directory out).
+\item \code{ls} is for ``list.'' (Prints the contents of the current
+  directory)
+\item \code{cp} is for ``copy.''
+\item \code{mv} is for ``move.'' (Or ``rename,'' if you prefer.)
+\item Most importantly, \code{man} is for ``manual.'' It will print
+  out the manual for any command. I highly recommend glancing through
+  the manual for all of the commands I just mentioned. For instance:
+
+  \lstin{man-pwd.txt}
+
+  To exit the manual, press \code{q}. The \code{#} indicates that the
+  rest of the line is a \term{comment}, and is ignored by the shell
+  (program that interprets \& executes terminal commands).
+
+  One of the most important options for \code{man} is \code{man -k},
+  which searches for manuals, or, in this case \term{man pages}.
+
+  \lstin{man-k.txt}
+\end{enumerate}
+
+\paragraph{Your first Python program run from a file.}
+
+Now that you know the basics of UNIX, we're going to run a very small
+program from a file.
+
+Python files typically have the \code{.py} file extension. Here's the
+\code{hello world} program in a file:
+
+\pyfile{code/hello_world.py}
+
+Use your text editor to write that program to a file called
+\code{hello_world.py}, then run this command:
+
+\lstin{python3-hello_world.txt}

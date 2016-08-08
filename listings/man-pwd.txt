@@ -1,0 +1,2 @@
+$ man pwd         # Shows the manual for the 'pwd' command
+$ man man         # Shows the manual for the 'man' command
