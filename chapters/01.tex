@@ -180,9 +180,88 @@ Python files typically have the \code{.py} file extension. Here's the
 
 \pyfile{code/hello_world.py}
 
-Use your text editor to write that program to a file called
-\code{hello_world.py}, then run this command:
+Use your text editor to write (yes, write it yourself, don't copy \&
+paste) that program to a file called \code{hello_world.py}, then run
+this command:
 
 \lstin{python3-hello_world.txt}
 
-\section{Arithmetic in Python}
+\begin{remark}
+  The triple-quoted string at the beginning of the file is a
+  \term{block comment}. It serves to explain what the file does. You
+  should get in the habit of putting a block comment at the top of all
+  of your Python files explaining what the file does. In fact, later
+  on, when we are writing functions, we'll write a block comment in
+  each function explaining what the function does.
+\end{remark}
+
+\subsection{Exercises}
+
+\begin{exercise}
+  Write \& run programs that print out the following strings:
+
+  \begin{enumerate}
+  \item \code{The quick brown fox jumped over the lazy dog.}
+  \item \code{Programming is not actually all that hard.}
+  \item \code{Nixon did nothing wrong.}
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Calculate the result of each of the following expressions using
+  Python. (Doing this in the REPL is fine):
+
+  \begin{enumerate}
+  \item $3 \times 2$
+  \item $11 \times 18$
+  \item $\frac{541}{241}$
+  \item $100 + 847 - 17$
+  \end{enumerate}
+\end{exercise}
+
+\section{Standard IO}
+
+Our goal at the end of this section is to write a function that does
+the following things, in a loop:
+
+\begin{enumerate}
+\item Read a piece of text from the user.
+\item Print out the text but reversed.
+\end{enumerate}
+
+If the user inputs \code{exit}, then the program exits.
+
+Vocabulary term: a piece of text is called a \term{string}.
+
+To print out the text, use the \code{print()} function. To read text
+input, we use the \code{input()} function. Examples:
+
+\lstpy{input-example.txt}
+
+Knowing about the function \code{input()} is a piece of trivia, that,
+in the grand scheme of things, is unimportant. However, being able to
+apply the thought process and techniques in this section to similar
+problems is very important.
+
+The broadest technique in programming is to break a problem down into
+smaller problems. Here is how I would break down this problem:
+
+\begin{enumerate}
+\item start up the program;
+\item read a string from the user using \code{input()};
+\item if the string is \code{exit}, then die;
+\item else, reverse the string;
+\item print the reversed string;
+\item go back to 2.
+\end{enumerate}
+
+There are two important concepts in my breakdown:
+
+\begin{enumerate}
+\item the \term{variable}, i.e. storing and changing a value;
+\item the \term{conditional}, i.e. if A then B else C;
+\item the \term{loop}, i.e. ``go back to 2.''
+\end{enumerate}
+
+These two concepts are examples of \term{control flow
+  structures}. We'll learn more about them in this section.

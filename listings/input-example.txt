@@ -1,0 +1,12 @@
+>>> input()
+hi
+'hi'
+>>> input()
+I have to manually type the string into the console, then hit return.
+'I have to manually type the string into the console, then hit return.'
+>>> input('You can put a string prompt as an argument')
+You can put a string prompt as an argumentblah
+'blah'
+>>> input('However, make sure it ends with a space: ')
+However, make sure it ends with a space: Yay!
+'Yay!'
