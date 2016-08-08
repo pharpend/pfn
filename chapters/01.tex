@@ -3,7 +3,9 @@
 This is a beginner-level Python ``book''. It's closer to a series of
 rambling notes at this point. The intent of the book is to teach you
 basic Python, as well as establish an appropriate mathematical
-background.
+background. This text focuses very little on Python-specific
+techniques and ideas, and instead focuses on the mathematics and
+problem-solving techniques used in programming.
 
 Each chapter starts with a goal, and perhaps an outline of steps we'll
 take to meet that goal. The chapters are designed so you can (ideally)
@@ -148,12 +150,12 @@ actually need to know as we move forward:
 \begin{enumerate}
 \item \code{mkdir} is for ``make directory.''
 \item \code{cd} is for ``change directory.''
-\item \code{pwd} is for ``print working directory.'' (Prints the
-  current directory out).
+\item \code{pwd} is for ``print working directory.'' (Prints the name
+  of the current directory to the console).
 \item \code{ls} is for ``list.'' (Prints the contents of the current
-  directory)
+  directory).
 \item \code{cp} is for ``copy.''
-\item \code{mv} is for ``move.'' (Or ``rename,'' if you prefer.)
+\item \code{mv} is for ``move.'' (Or ``rename,'' if you prefer).
 \item Most importantly, \code{man} is for ``manual.'' It will print
   out the manual for any command. I highly recommend glancing through
   the manual for all of the commands I just mentioned. For instance:
@@ -165,7 +167,7 @@ actually need to know as we move forward:
   (program that interprets \& executes terminal commands).
 
   One of the most important options for \code{man} is \code{man -k},
-  which searches for manuals, or, in this case \term{man pages}.
+  which searches for manuals, also called \term{man pages}.
 
   \lstin{man-k.txt}
 \end{enumerate}
@@ -173,16 +175,14 @@ actually need to know as we move forward:
 \paragraph{Your first Python program run from a file.}
 
 Now that you know the basics of UNIX, we're going to run a very small
-program from a file.
-
-Python files typically have the \code{.py} file extension. Here's the
-\code{hello world} program in a file:
+program from a file. Python files typically have the \code{.py} file
+extension. Here's the \code{hello world} program in a file:
 
 \pyfile{code/hello_world.py}
 
-Use your text editor to write (yes, write it yourself, don't copy \&
-paste) that program to a file called \code{hello_world.py}, then run
-this command:
+Use your text editor to write\footnote{Yes, write it yourself, don't
+  copy \& paste} that program to a file called \code{hello_world.py},
+then run this command:
 
 \lstin{python3-hello_world.txt}
 
@@ -221,15 +221,16 @@ this command:
 
 \section{Standard IO}
 
-Our goal at the end of this section is to write a function that does
+Our goal at the end of this section is to write a program that does
 the following things, in a loop:
 
 \begin{enumerate}
 \item Read a piece of text from the user.
 \item Print out the text but reversed.
+\item If the user inputs `exit', then the program exits, but before
+  we print out the reversed text.
 \end{enumerate}
 
-If the user inputs \code{exit}, then the program exits.
 
 Vocabulary term: a piece of text is called a \term{string}.
 
@@ -255,13 +256,15 @@ smaller problems. Here is how I would break down this problem:
 \item go back to 2.
 \end{enumerate}
 
-There are two important concepts in my breakdown:
+There are four important concepts in my breakdown:
 
 \begin{enumerate}
 \item the \term{variable}, i.e. storing and changing a value;
 \item the \term{conditional}, i.e. if A then B else C;
-\item the \term{loop}, i.e. ``go back to 2.''
+\item the \term{loop}, i.e. ``go back to 2;''
+\item a \term{subroutine}, where we delegate repetitive tasks to
+  smaller programs stored inside our main program.
 \end{enumerate}
 
-These two concepts are examples of \term{control flow
+The latter three concepts are examples of \term{flow control
   structures}. We'll learn more about them in this section.
