@@ -58,23 +58,28 @@
 
 \theoremstyle{definition}
 \newtheorem{remark}{Remark}[section]
-\newtheorem{definition}[remark]{Definition}
+\newtheorem{example}[remark]{Example}
 \newtheorem{exercise}{Exercise}[section]
 
 \theoremstyle{plain}
 \newtheorem{axiom}[remark]{Axiom}
+\newtheorem{definition}[remark]{Definition}
 \newtheorem{lemma}[remark]{Lemma}
 \newtheorem{corollary}[remark]{Corollary}
 \newtheorem{theorem}[remark]{Theorem}
+\newenvironment{solution}{\textbf{Solution. }}{\qed}
+
+\newcommand{\answergraph}{\includegraphics[width=\textwidth]}
 
 \newcommand{\code}[1]{\lstinline{#1}}
 \newcommand{\lstin}[1]{\lstinputlisting{listings/#1}}
 \newcommand{\lstpy}[1]{\lstinputlisting[language=Python]{listings/#1}}
 \newcommand{\pyfile}[1]{\lstinputlisting[language=Python]{#1}}
-\newcommand{\answergraph}[1]{\includegraphics[width=0.8\textwidth]{#1}}
 \newcommand{\term}{\textbf}
 \newcommand{\xtb}{\textbf}
 
+\newcommand{\True}{\code{True}}
+\newcommand{\False}{\code{False}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\braces}[1]{\left\{#1\right\}}
@@ -97,6 +102,8 @@ This work is licensed under the Creative Commons
 Attribution-ShareAlike 4.0 International License. To view a copy of
 this license, visit
 \url{http://creativecommons.org/licenses/by-sa/4.0/}.
+
+Source code for the book: \url{https://github.com/pharpend/pfs}.
 
 Code examples in the book are licensed under the ISC License:
 

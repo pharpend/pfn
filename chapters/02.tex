@@ -49,7 +49,7 @@ The latter three concepts are examples of \term{flow control
 chapter. Conditional statements are broad enough that they require
 their own section.
 
-\subsection{Variables}
+\section{Variables}
 
 The first thing is a variable. Most people are familiar with the
 concept of a variable from mathematics courses. In most programming
@@ -102,6 +102,22 @@ type of an object in Python, you use the \code{type()} function:
   approach.
 \end{remark}
 
+\subsection{Legal variable names}
+
+Python, and indeed every language, has rules about legal variable
+names:
+
+\begin{enumerate}
+\item variable names \emph{must} start with a letter or an underscore;
+\item variable names \emph{should} start with a lowercase letter or an
+  underscore;
+\item variable names may only contain letters, numbers, and underscores;
+\item variable names are case-sensitive;
+\item separate words in variables should use the \code{snake_case}
+  convention (as opposed to the \code{idontknowwhatwordsare} or
+  \code{camelCase} conventions).
+\end{enumerate}
+
 \begin{exercise}
   What do you suppose the types of these values are? Check your
   guesses in the REPL:
@@ -124,6 +140,22 @@ type of an object in Python, you use the \code{type()} function:
     \code{int()} in the REPL.}
 
   Try it and see.
+\end{exercise}
+
+\begin{exercise}
+  Which of the following are legal variable names?
+
+  \begin{enumerate}
+  \item \code{Hello_my_name_is_Peter!}
+  \item \code{Hello_my_name_is_Peter}
+  \item \code{one+one_equals_2}
+  \item \code{one_plus_one_equals_2}
+  \item \code{n00b}
+  \item \code{0perator}
+  \end{enumerate}
+
+  Try these out in the REPL (assign each name the value of \code{0} or
+  something).
 \end{exercise}
 
 \section{Conditionals and Boolean algebra}
@@ -306,6 +338,182 @@ False
   \label{tbl:math-python}
 \end{table}
 
+\subsection{If/then/else}
+
+Now that you understand what Booleans are, we need to be able to
+instruct Python to
+
+\begin{enumerate}
+\item given a Boolean \code{b};
+\item if \code{b} is true, do something;
+\item if \code{b} is false, do something else.
+\end{enumerate}
+
+In Python, this is achieved via the \code{if} clause. The general
+syntax is
+
+\begin{lstlisting}[language=Python]
+if b:
+    # do something here
+else:
+    # do something different
+\end{lstlisting}
+
+The \code{#} represents a comment, which is ignored.
+
+\begin{remark}
+  The above is not valid code, because you'd need actual code inside
+  the \code{if} and \code{else} blocks, rather than just a comment.
+\end{remark}
+
+\begin{remark}
+  Please note the trailing colons after \code{if b} and
+  \code{else}. It's really easy to forget them.
+\end{remark}
+
+Let's look at a simple program that takes in two numbers from the
+user, and checks if their sum is $20$.
+
+\pyfile{code/sum_is_twenty.py}
+
+Here's an example input:
+
+\lstin{sum_is_twenty.txt}
+
+Often times, if the first condition fails to be true, you'll want to
+test for other conditions inside the \code{else} block:
+
+\begin{lstlisting}[language=Python]
+if b1:
+    # do something here
+else:
+    # more conditions
+    if b2:
+        # do something here
+    else:
+        # more conditions
+      if b3:
+          # do something here
+      else:
+          # ...
+\end{lstlisting}
+
+This situation is rather common, so instead we have \code{elif}:
+
+\begin{lstlisting}[language=Python]
+if b1:
+    # do something here
+elif b2:
+    # do something here
+elif b3:
+    # do something here
+# ...
+else:
+    # finally, if everything fails, here
+\end{lstlisting}
+
+\subsection{CodingBat}
+
+I mentioned at the beginning of the book that many of the exercises
+are just to complete CodingBat exercises. This is because CodingBat
+will check your answers for you, and give you immediate feedback. You
+have \emph{almost} enough information to do the first one. There's one
+critical piece of information missing, and that's the notion of a
+\term{function}.
+
+The syntax for functions is a bit difficult to explain. It will be
+easier if I just write a few functions, then let you figure things
+out.  To illustrate, I'll do the first couple of CodingBat exercises,
+then leave others in the exercises.
+
+\begin{example}
+  (This is from \url{http://codingbat.com/prob/p173401}).
+
+  We are given two variables: \code{weekday} and \code{vacation}, both
+  of which are Booleans. We want to write a function that determines
+  whether or not we sleep in. If it is the weekend (i.e. \code{not
+    weekday}), or we are on vacation, then we sleep in. Else, we don't
+
+  \begin{solution}
+    CodingBat gives you the beginning of the function:
+
+\begin{lstlisting}[language=Python]
+def sleep_in(weekday, vacation):
+    # your code goes here
+\end{lstlisting}
+    You need to write something in the body that, at the end, returns
+    a Boolean determining whether or not we sleep in.
+
+    A na\"ive approach is to do this:
+
+    \pyfile{code/codingbat/warmup1/sleep_in_naive.py}
+
+    and that does work (see \cref{fig:sleep_in-naive}). However, we've
+    accidentally created a redundancy. If you ever find yourself doing
+    this:
+
+    \lstpy{if-x-return-true.py}
+
+    That can actually be simplified into
+
+    \lstpy{return-some-boolean.py}
+
+    Therefore, a better solution is:
+
+    \pyfile{code/codingbat/warmup1/sleep_in.py}
+
+    This gives the same result (see \cref{fig:sleep_in}).
+  \end{solution}
+\end{example}
+
+\begin{figure}[h]
+  \centering
+  \answergraph{images/sleep_in-naive.png}
+  \caption{Our na\"ive approach to \code{sleep_in()}.}
+  \label{fig:sleep_in-naive}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \answergraph{images/sleep_in.png}
+  \caption{Our non-na\"ive approach to \code{sleep_in()}.}
+  \label{fig:sleep_in}
+\end{figure}
+
+\begin{example}
+  (From \url{http://codingbat.com/prob/p120546}).
+
+  \begin{quote}
+    We have two monkeys, a and b, and the parameters \code{a_smile}
+    and \code{b_smile} indicate if each is smiling. We are in trouble
+    if they are both smiling or if neither of them is smiling. Return
+    \code{True} if we are in trouble.
+  \end{quote}
+
+  \begin{solution}
+    There are two things, which can be combined with \code{or}:
+
+    \begin{enumerate}
+    \item both monkeys smiling (\code{a_smile and b_smile});
+    \item neither monkey smiling (\code{(not a_smile) and (not
+        b_smile)}).
+    \end{enumerate}
+
+    Therefore, our result is
+
+    \pyfile{code/codingbat/warmup1/monkey_trouble.py}
+
+    As you can see in \cref{fig:monkey_trouble}, this works!
+  \end{solution}
+\end{example}
+
+\begin{figure}[h]
+  \centering
+  \answergraph{images/monkey_trouble.png}
+  \caption{The result of running our \code{monkey_trouble} solution in
+    CodingBat.}
+  \label{fig:monkey_trouble}
+\end{figure}
+
 \subsection{Exercises}
 
 \begin{exercise}
@@ -398,80 +606,40 @@ False
   Write a program that takes a number (via \code{input()}), and prints
   out whether or not it's greater than $34$.
 \end{exercise}
+\begin{exercise}
+  Construct two truth tables to convince yourself that these two
+  things are the same.
 
-\section{If/then/else}
+  \lstpy{if-x-return-true.py}
 
-Now that you understand what Booleans are, we need to be able to
-instruct Python to
+  \begin{center}
+    \begin{tabu}{r|c|c}
+      \code{if/else} & \code{True} & \code{False} \\
+      \tabucline \\
+      \True && \\
+      \tabucline \\
+      \False && \\
+    \end{tabu}
+  \end{center}
 
-\begin{enumerate}
-\item given a Boolean \code{b};
-\item if \code{b} is true, do something;
-\item if \code{b} is false, do something else.
-\end{enumerate}
+  \lstpy{return-some-boolean.py}
 
-In Python, this is achieved via the \code{if} clause. The general
-syntax is
+  \begin{center}
+    \begin{tabu}{r|c|c}
+      \code{return} & \code{True} & \code{False} \\
+      \tabucline \\
+      \True && \\
+      \tabucline \\
+      \False && \\
+    \end{tabu}
+  \end{center}
+\end{exercise}
 
-\begin{lstlisting}[language=Python]
-if b:
-    # do something here
-else:
-    # do something different
-\end{lstlisting}
+\begin{exercise}
+  Complete \url{http://codingbat.com/prob/p141905}. (\code{sum_double}).
+\end{exercise}
+\begin{exercise}
+  Complete \url{http://codingbat.com/prob/p124984}. (\code{makes10}).
+\end{exercise}
 
-The \code{#} represents a comment, which is ignored.
-
-\begin{remark}
-  The above is not valid code, because you'd need actual code inside
-  the \code{if} and \code{else} blocks, rather than just a comment.
-\end{remark}
-
-\begin{remark}
-  Please note the trailing colons after \code{if b} and
-  \code{else}. It's really easy to forget them.
-\end{remark}
-
-Let's look at a simple program that takes in two numbers from the
-user, and checks if their sum is $20$.
-
-\pyfile{code/sum_is_twenty.py}
-
-Here's an example input:
-
-\lstin{sum_is_twenty.txt}
-
-Often times, if the first condition fails to be true, you'll want to
-test for other conditions inside the \code{else} block:
-
-\begin{lstlisting}[language=Python]
-if b1:
-    # do something here
-else:
-    # more conditions
-    if b2:
-        # do something here
-    else:
-        # more conditions
-      if b3:
-          # do something here
-      else:
-          # ...
-\end{lstlisting}
-
-This situation is rather common, so instead we have \code{elif}:
-
-\begin{lstlisting}[language=Python]
-if b1:
-    # do something here
-elif b2:
-    # do something here
-elif b3:
-    # do something here
-# ...
-else:
-    # finally, if everything fails, here
-\end{lstlisting}
-
-If $x$ is a prime modulo $p$, then, in the multiplicative group
-$\frac{\Z}{p\Z}[y]$, $x$ occurs at least once.
+\subsection{Lists}
