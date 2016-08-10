@@ -297,121 +297,6 @@ numbers: $$a(b + c) = ab + ac.$$ This is also true:
 
 The analog doesn't hold in math: $$a + bc \ne (a + b)(b + c).$$
 
-\subsection{Testing for equality, and other mathematical tests}
-
-It's tiring to put ``is equal to'' every time. Instead, Python has the
-\code{==} operator:
-
-\lstpy{python-equals-equals.txt}
-
-\begin{remark}
-  It's important to note that \code{a == b} \emph{tests} to see if
-  \code{a} and \code{b} are equal, whereas \code{a = b} \emph{assigns}
-  \code{a} to whatever \code{b} is.
-\end{remark}
-
-The analog of $\ne$ is \code{!=}:
-
-\begin{lstlisting}[language=Python]
->>> 2 != 4
-True
->>> 2 != 2
-False
-\end{lstlisting}
-
-\Cref{tbl:math-python} might be helpful.
-
-\begin{table}
-  \centering
-  \begin{tabu}{r|l}
-    \textbf{Math} & \textbf{Python} \\
-    \tabucline \\
-    $a := b$ & \code{a = b} \\
-    $a = b$ & \code{a == b} \\
-    $a \ne b$ & \code{a != b} \\
-    $a > b$ & \code{a > b} \\
-    $a \ge b$ & \code{a >= b} \\
-    $a < b$ & \code{a < b} \\
-    $a \le b$ & \code{a <= b} \\
-  \end{tabu}
-  \caption{Mathematical statements, and their equivalent in Python}
-  \label{tbl:math-python}
-\end{table}
-
-\subsection{If/then/else}
-
-Now that you understand what Booleans are, we need to be able to
-instruct Python to
-
-\begin{enumerate}
-\item given a Boolean \code{b};
-\item if \code{b} is true, do something;
-\item if \code{b} is false, do something else.
-\end{enumerate}
-
-In Python, this is achieved via the \code{if} clause. The general
-syntax is
-
-\begin{lstlisting}[language=Python]
-if b:
-    # do something here
-else:
-    # do something different
-\end{lstlisting}
-
-The \code{#} represents a comment, which is ignored.
-
-\begin{remark}
-  The above is not valid code, because you'd need actual code inside
-  the \code{if} and \code{else} blocks, rather than just a comment.
-\end{remark}
-
-\begin{remark}
-  Please note the trailing colons after \code{if b} and
-  \code{else}. It's really easy to forget them.
-\end{remark}
-
-Let's look at a simple program that takes in two numbers from the
-user, and checks if their sum is $20$.
-
-\pyfile{code/sum_is_twenty.py}
-
-Here's an example input:
-
-\lstin{sum_is_twenty.txt}
-
-Often times, if the first condition fails to be true, you'll want to
-test for other conditions inside the \code{else} block:
-
-\begin{lstlisting}[language=Python]
-if b1:
-    # do something here
-else:
-    # more conditions
-    if b2:
-        # do something here
-    else:
-        # more conditions
-      if b3:
-          # do something here
-      else:
-          # ...
-\end{lstlisting}
-
-This situation is rather common, so instead we have \code{elif}:
-
-\begin{lstlisting}[language=Python]
-if b1:
-    # do something here
-elif b2:
-    # do something here
-elif b3:
-    # do something here
-# ...
-else:
-    # finally, if everything fails, here
-\end{lstlisting}
-
 \subsection{CodingBat}
 
 I mentioned at the beginning of the book that many of the exercises
@@ -444,38 +329,23 @@ def sleep_in(weekday, vacation):
     You need to write something in the body that, at the end, returns
     a Boolean determining whether or not we sleep in.
 
-    A na\"ive approach is to do this:
+    We combine these two conditions with \code{or}
 
-    \pyfile{code/codingbat/warmup1/sleep_in_naive.py}
-
-    and that does work (see \cref{fig:sleep_in-naive}). However, we've
-    accidentally created a redundancy. If you ever find yourself doing
-    this:
-
-    \lstpy{if-x-return-true.py}
-
-    That can actually be simplified into
-
-    \lstpy{return-some-boolean.py}
-
-    Therefore, a better solution is:
+    \begin{enumerate}
+    \item it's the weekend (i.e \code{not weekday});
+    \item we're on vacation (i.e. \code{vacation}).
+    \end{enumerate}
 
     \pyfile{code/codingbat/warmup1/sleep_in.py}
 
-    This gives the same result (see \cref{fig:sleep_in}).
+    This gives the correct result (see \cref{fig:sleep_in}).
   \end{solution}
 \end{example}
 
 \begin{figure}[h]
   \centering
-  \answergraph{images/sleep_in-naive.png}
-  \caption{Our na\"ive approach to \code{sleep_in()}.}
-  \label{fig:sleep_in-naive}
-\end{figure}
-\begin{figure}[h]
-  \centering
   \answergraph{images/sleep_in.png}
-  \caption{Our non-na\"ive approach to \code{sleep_in()}.}
+  \caption{The result of our \code{sleep_in()} solution.}
   \label{fig:sleep_in}
 \end{figure}
 
@@ -509,10 +379,13 @@ def sleep_in(weekday, vacation):
 \begin{figure}[h]
   \centering
   \answergraph{images/monkey_trouble.png}
-  \caption{The result of running our \code{monkey_trouble} solution in
-    CodingBat.}
+  \caption{The result of running our \code{monkey_trouble()} solution
+    in CodingBat.}
   \label{fig:monkey_trouble}
 \end{figure}
+
+There's more to cover, but this section is too long as it is, so here
+are some exercises:
 
 \subsection{Exercises}
 
@@ -602,10 +475,311 @@ def sleep_in(weekday, vacation):
     \end{tabu}
   \end{center}
 \end{exercise}
+
+\section{Numerical tests and some mathematical language}
+
+In the lemmas in the previous section, it's awfully tiring to write
+``is equal to'' every time I want to mention that two things are
+equal. Instead, Python has the \code{==} operator:
+
+\lstpy{python-equals-equals.txt}
+
+\begin{remark}
+  It's important to note that \code{a == b} \emph{tests} to see if
+  \code{a} and \code{b} are equal, whereas \code{a = b} \emph{assigns}
+  \code{a} to whatever \code{b} is.
+\end{remark}
+
+The analog of $\ne$ is \code{!=}:
+
+\begin{lstlisting}[language=Python]
+>>> 2 != 4
+True
+>>> 2 != 2
+False
+\end{lstlisting}
+
+In fact, most of the mathematical operators have analogs in
+Python. \Cref{tbl:math-python} might be helpful.
+
+\begin{table}
+  \centering
+  \begin{tabu}{r|l}
+    \textbf{Math} & \textbf{Python} \\
+    \tabucline \\
+    $a := b$ & \code{a = b} \\
+    $a = b$ & \code{a == b} \\
+    $a \ne b$ & \code{a != b} \\
+    $a > b$ & \code{a > b} \\
+    $a \ge b$ & \code{a >= b} \\
+    $a < b$ & \code{a < b} \\
+    $a \le b$ & \code{a <= b} \\
+  \end{tabu}
+  \caption{Mathematical statements, and their equivalent in Python}
+  \label{tbl:math-python}
+\end{table}
+
+\subsection{Some number $x$ is within $\epsilon$ of $y$}
+
+This is a problem that comes up a lot in programming. For instance, if
+you're writing a shoot-em-up game, you want to be able to tell if a
+bullet hit its target. It's really hard to properly detect collisions,
+like you would in real life. Instead, what you do is see if the bullet
+was ever sufficiently close to its target that you can say ``that's
+good enough, it hit the target''.
+
+An example that complicated won't come up for a while. However, this
+is one of the CodingBat problems:
+
+\begin{quotation}
+  Given an int $n$, return \True if it is within 10 of 100 or
+  200. Note: \code{abs(num)} computes the absolute value of a number.
+\end{quotation}
+
+In that case, you want to be able to tell if some number $n$ is within
+$10$ of $100$, and again check if it's within $10$ of $200$. A na\"ive
+approach is this:
+
+\begin{enumerate}
+\item check if $n \ge 90$, and $n \le 110$, then
+\item check if $n \ge 190$, and $n \le 210$.
+\end{enumerate}
+
+That quickly becomes cumbersome to read. Instead, take a page out of a
+topology textbook: the distance between two points $x$ and $y$ is
+equal to $\abs{x - y}$. Note: here, $\abs{x}$ denotes the
+``magnitude,'' or ``norm'' of $x$. With ordinary numbers, $\abs{x}$ is
+just the absolute value:
+
+\begin{definition}
+  For a real number $x$,
+
+  \begin{equation}
+    \label{eq:abs-val}
+    \abs{x} = \left\{
+      \begin{split}
+        x & \text{ if } x \ge 0 \\
+        -x & \text{ if } x < 0
+      \end{split}
+    \right.
+  \end{equation}
+\end{definition}
+
+Note this corollary
+
+\begin{corollary}
+  For all real numbers $x$, $$\norm{x} = \norm{-x}.$$
+\end{corollary}
+
+This implies
+
+\begin{corollary}
+  For all real numbers $x$ and $y$, $$\norm{x - y} = \norm{y - x}.$$
+\end{corollary}
+
+Therefore, \ctext{$\norm{100 - x} \le 10$ if and only if
+  $90 \le x \le 110$.}  Likewise, \ctext{$\norm{200 - x} \le 10,$ if
+  and only if $190 \le x \le 210.$} Therefore, in this case, you can
+simplify the problem by combining these with \code{or}:
+
+\begin{enumerate}
+\item check if $\norm{x - 100} \le 10$, using \code{abs()}
+\item check if $\norm{x - 200} \le 10$, using \code{abs()}
+\end{enumerate}
+
+I'm starting to sound less like a normal person, and more like a
+mathematician. Therefore, there are two routes:
+
+\begin{enumerate}
+\item ``dumb down'' my language so non-mathematicians can understand
+  it, or
+\item teach you what all this terminology is.
+\end{enumerate}
+
+I vote for \#2, because the mathematical methods of thinking are very
+helpful. The next chapter will go over much of the mathematical
+terminology that you'll need. For now, I'll give you the bare minimum
+to do some of the CodingBat problems.
+
+\subsection{Exercises}
+
+These are the problems I could find that use the methods of this
+section, but not those in the next section.
+
 \begin{exercise}
-  Write a program that takes a number (via \code{input()}), and prints
-  out whether or not it's greater than $34$.
+  Use \cref{tbl:math-python} and the methods described in this section
+  to do \url{http://codingbat.com/prob/p124676}. (\code{near_hundred})
 \end{exercise}
+\cbex{http://codingbat.com/prob/p124984}{makes10}.
+\cbex{http://codingbat.com/prob/p166884}{parrot_trouble}
+
+\section{If/then/Else}
+
+\subsection{If/then/else}
+
+Now that you understand what Booleans are, and how to perform simple
+numerical tests, we need to be able to instruct Python to
+
+\begin{enumerate}
+\item given a Boolean \code{b};
+\item if \code{b} is true, do something;
+\item if \code{b} is false, do something else.
+\end{enumerate}
+
+In Python, this is achieved via the \code{if} clause. The general
+syntax is
+
+\begin{lstlisting}[language=Python]
+if b:
+    # do something here
+else:
+    # do something different
+\end{lstlisting}
+
+The \code{#} represents a comment, which is ignored.
+
+\begin{remark}
+  The above is not valid code, because you'd need actual code inside
+  the \code{if} and \code{else} blocks, rather than just a comment.
+\end{remark}
+
+\begin{remark}
+  Please note the trailing colons after \code{if b} and
+  \code{else}. It's really easy to forget them.
+\end{remark}
+
+\paragraph{Indentation.}
+
+Nobody can agree on good indentation practices. However, Python has a
+very extensive style guide, called Python Enhancement Protocol 8, or
+PEP 8: \url{https://www.python.org/dev/peps/pep-0008/}.
+
+Here are the typical spats:
+
+\begin{enumerate}
+\item How many spaces per indentation level? It's usually either 2 or
+  4, but sometimes 8.
+\item Should you use spaces or tabulator characters? Nowadays, spaces
+  are preferred, because everyone agrees how wide a space is. Nobody
+  can agree how wide a tab is (see \#1).
+\end{enumerate}
+
+PEP 8 states the following:
+
+\begin{quotation}
+  Use 4 spaces per indentation level. 
+
+  \dots
+
+  Spaces are the preferred indentation method.
+
+  Tabs should be used solely to remain consistent with code that is already indented with tabs.
+
+  Python 3 disallows mixing the use of tabs and spaces for indentation.
+\end{quotation}
+
+Almost everyone agrees that mixing tabs and spaces is evil. This book
+will follow PEP 8's suggestion and use 4 spaces.
+
+\paragraph{Back to work.}
+
+Let's look at a simple program that takes in two numbers from the
+user, and checks if their sum is $20$.
+
+\pyfile{code/sum_is_twenty.py}
+
+Here's an example input:
+
+\lstin{sum_is_twenty.txt}
+
+Often times, if the first condition fails to be true, you'll want to
+test for other conditions inside the \code{else} block:
+
+\begin{lstlisting}[language=Python]
+if b1:
+    # do something here
+else:
+    # more conditions
+    if b2:
+        # do something here
+    else:
+        # more conditions
+      if b3:
+          # do something here
+      else:
+          # ...
+\end{lstlisting}
+
+This situation is rather common, so instead we have \code{elif}:
+
+\begin{lstlisting}[language=Python]
+if b1:
+    # do something here
+elif b2:
+    # do something here
+elif b3:
+    # do something here
+# ...
+else:
+    # finally, if everything fails, here
+\end{lstlisting}
+
+I'll do one of the CodingBat problems, and leave the rest to you.
+
+\begin{example}
+  (This is \url{http://codingbat.com/prob/p162058}).
+
+  \begin{quotation}
+    Given 2 int values, return True if one is negative and one is
+    positive. Except if the parameter "negative" is True, then return
+    True only if both are negative.
+  \end{quotation}
+
+  \begin{solution}
+    That word salad might be tough to parse. I'll try to break it down
+    into a nice pretty tree:
+
+    Given two numbers $a$ and $b$
+
+    \begin{enumerate}
+    \item If \code{negative} is \True ,
+
+      then, return \True if both $a, b < 0$.
+    \item Else,
+
+      return \True\ if $a < 0 < b$ or $b < 0 < a$ (i.e. one is
+      positive and the other is negative).
+    \end{enumerate}
+
+    There's a handy mathematical trick, here, which is, for two
+    numbers $a$ and $b$:
+
+    \begin{align*}
+      ab > 0 & \text{ if $a$ and $b$ have the same sign;} \\
+      ab < 0 & \text{ if $a$ and $b$ have opposite signs;} \\
+      ab = 0 & \text{ if at least one of $a$ and $b$ is zero.}
+    \end{align*}
+
+    Therefore, to test if the two numbers have opposite signs, we
+    simply test for $ab < 0$.
+
+    Here's my solution:
+
+    \pyfile{code/codingbat/warmup1/pos_neg.py}
+
+    It gives the correct result (see \cref{fig:pos_neg}).
+  \end{solution}
+\end{example}
+
+\begin{figure}[h]
+  \centering
+  \answergraph{images/pos_neg.png}
+  \caption{Result of my solution for \code{pos_neg()}.}
+  \label{fig:pos_neg}
+\end{figure}
+
+\subsection{Exercises}
+
 \begin{exercise}
   Construct two truth tables to convince yourself that these two
   things are the same.
@@ -633,13 +807,244 @@ def sleep_in(weekday, vacation):
       \False && \\
     \end{tabu}
   \end{center}
+
+  I put this exercise first to suggest a way to eliminate a common
+  (redundant) idiom in your code, and make your code a bit cleaner.
 \end{exercise}
 
 \begin{exercise}
-  Complete \url{http://codingbat.com/prob/p141905}. (\code{sum_double}).
-\end{exercise}
-\begin{exercise}
-  Complete \url{http://codingbat.com/prob/p124984}. (\code{makes10}).
+  Here's another common redundant idiom:
+
+  Given a Boolean \code{x}, write out a truth table to convince
+  yourself that \code{x} always has the same value as \code{x ==
+    True}.
+
+  \begin{center}
+    \begin{tabu}{r|l}
+      \code{x} & \code{x == True} \\
+      \tabucline \\
+      \True & \\
+      \False & \\
+    \end{tabu}
+  \end{center}
+
+  Therefore, you should never write something like \code{if x ==
+    True}. Instead replace it with just \code{if x}.
 \end{exercise}
 
-\subsection{Lists}
+\begin{exercise}
+  Use the \code{abs()} function to do
+  \url{http://codingbat.com/prob/p197466}. (\code{diff21})
+\end{exercise}
+
+\begin{exercise}
+  Use \cref{tbl:math-python}, as well as your reasoning ability to do
+  \url{http://codingbat.com/prob/p162058}. (\code{pos_neg})
+\end{exercise}
+
+\begin{exercise}
+  Write a program that takes a number (via \code{input()}), and prints
+  out whether or not it's greater than $34$.
+\end{exercise}
+
+\cbex{http://codingbat.com/prob/p141905}{sum_double}
+
+\begin{exercise}
+  Do all of Logic-1: \url{http://codingbat.com/python/Logic-1}.
+\end{exercise}
+
+\section{Lists and Strings}
+
+The next important type is a \term{list}. Informally, you can think of
+a string as a list of characters.\footnote{This is a rather
+  inefficient implementation, but it's a decent way to think about
+  strings. Nonetheless, it is used in a few languages.}
+
+The syntax for lists is to surround them in square brackets, with the
+elements separated by commas:
+
+\lstin{lists-01.txt}
+
+To get the $i$th element in a list $x$, use \code{x[i]}:
+
+\lstin{lists-02.txt}
+
+\xtb{Important:} list indices start at $0$. This is the case in most
+languages.
+
+In Python, you can use negative indices, starting with $-1$, to pick
+elements from the end of the list:
+
+\lstin{lists-03.txt}
+
+To get the $i$th element, up to (but not including) the $j$th element,
+with $i < j$, use \code{x[i:j]}:
+
+\lstin{lists-04.txt}
+
+This left-inclusive behavior is kind of confusing, but there's nothing
+I can really do about it. If you reference \code{x[i:j]} with
+$i \ge j$, then you get an empty list.
+
+To get the length of a list (or a string), use \code{len()}:
+
+\lstin{lists-05.txt}
+
+You can add two lists together using \code{+}:
+
+\lstin{lists-06.txt}
+
+You can (on the right) multiply a list by an integer to repeat the list:
+
+\lstin{lists-07.txt}
+
+Proper lists (i.e. not strings) do not need to contain elements of the
+same type:
+
+\lstin{lists-08.txt}
+
+To test if a value is an element of the list, use \code{in}:
+
+\lstin{lists-09.txt}
+
+\subsection{Exercises}
+
+You're now ready to do most of the level-1 CodingBat exercises.
+
+\cbex{http://codingbat.com/prob/p189441}{not_string}
+\cbex{http://codingbat.com/prob/p149524}{missing_char}
+\cbex{http://codingbat.com/prob/p153599}{front_back}
+\cbex{http://codingbat.com/prob/p193507}{string_times}
+\cbex{http://codingbat.com/prob/p147920}{front3}
+\cbex{http://codingbat.com/prob/p165097}{front_times}
+\begin{exercise}
+  Do all of List-1: \url{http://codingbat.com/python/List-1}.
+\end{exercise}
+\begin{exercise}
+  Do all of String-1: \url{http://codingbat.com/python/String-1}.
+\end{exercise}
+
+\section{Loops}
+
+Yay! We're on the last topic in the chapter! After this, the problem
+we initially set out to solve will be easy.
+
+There are two types of loops:
+
+\begin{enumerate}
+\item \code{while}-loops, and
+\item \code{for}-loops.
+\end{enumerate}
+
+\code{while}-loops are simpler, and every \code{for}-loop can be
+expressed as a \code{while}-loop.
+
+While loops are of the format:
+
+\lstpy{while-b.py}
+
+where \code{b} is a Boolean. You can easily make an infinite loop
+with:
+
+\lstpy{while-true.py}
+
+However, you should never do that. Typically, what you're doing is
+repeating an action until \code{b} becomes \False, then you move
+on. For instance:
+
+\lstpy{while-i-less-than-10.py}
+
+What do you think the output of that program will be? Try it and see!
+
+That loop can be much more easily expressed as a
+\code{for}-loop. Before I go much further, it's worth mentioning the
+\code{range()} function:
+
+\lstpy{for-i-in-range-10.py}
+
+That program has the same output as the code with the
+\code{while}-loop.
+
+\subsection{Generating a list}
+
+A common problem is to generate a list of things, using a loop. For
+instance, to generate the even positive integers less than (or equal
+to) $20$:
+
+\lstpy{even-ints-lt-20.py}
+
+Try running it, and toying with the program, to try to figure out why
+it works the way it does.
+
+Python has some syntax, borrowed from mathematics, that makes
+generating lists a bit more pleasant. That's called a
+\term{comprehension}. In mathematics, $\Ns$ is the set of positive
+integers. So, we could write
+$$\scomp{2x \in \Ns}{x \in \Ns \text{ and } x \le 10}$$ to mean ``the
+set of all numbers in $\Ns$ of the form $2x$, where $x$ is in $\Ns$
+and $x$ is less than or equal to $10$.'' In Python, this is
+
+\begin{lstlisting}[language=Python]
+>>> [2*x for x in range(1, 11)]
+[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+\end{lstlisting}
+
+Haskell also has list comprehensions, which have a little bit more
+similarity to the mathematical notation:
+
+\begin{lstlisting}[language=Haskell]
+Prelude> [2*x | x <- [1..10]]
+[2,4,6,8,10,12,14,16,18,20]
+\end{lstlisting}
+
+I'll go through one example, then give you some exercises
+
+\begin{example}
+  (From \url{http://codingbat.com/prob/p166170}).
+
+  Given an array (list) of integers, return the number of 9's in the
+  list.
+
+  \begin{solution}
+    There are several ways to do this, but here are the two I thought
+    of:
+
+    \begin{enumerate}
+    \item Create an integer, call it $z$, set it equal to $0$. Loop
+      through the list. For each element $x$ in the list, if $x = 9$,
+      then increment $z$. Else, continue. The code would look
+      something like this:
+
+      \pyfile{code/codingbat/warmup2/array_count9.py}
+
+      That approach works (see \cref{fig:array_count9-1}).
+
+    \item However, the Haskellish way to do it, which is technically
+      less efficient, but is much clearer, is this:
+
+      \pyfile{code/codingbat/warmup2/array_count9-2.py}
+
+      This also works (see \cref{fig:array_count9-2})
+    \end{enumerate}
+  \end{solution}
+\end{example}
+
+\begin{figure}[h]
+  \centering
+  \answergraph{images/array_count9-1.png}
+  \caption{Approach 1 to \code{array_count9}.}
+  \label{fig:array_count9-1}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \answergraph{images/array_count9-2.png}
+  \caption{Approach 2 to \code{array_count9}.}
+  \label{fig:array_count9-2}
+\end{figure}
+
+\subsection{Exercises}
+
+\cbex{http://codingbat.com/prob/p118366}{string_splosion}
+\cbex{http://codingbat.com/prob/p110166}{array_front9}
+\cbex{http://codingbat.com/prob/p170842}{double_char}

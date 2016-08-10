@@ -1,0 +1,2 @@
+while b:
+   # do something
