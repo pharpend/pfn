@@ -1,0 +1,8 @@
+$ python3 code/sum_is_twenty.py
+First number: 23
+Second number: -3
+yay
+$ python3 code/sum_is_twenty.py
+First number: 2
+Second number: 4
+boo

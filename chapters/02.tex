@@ -1,118 +1,474 @@
-\chapter{The greatest common divisor}
+\chapter{Standard IO}
 
-Our goal at the end of this chapter is to write a function that
-computes the greatest common divisor of two positive integers. I'll
-try to develop the appropriate math background, and the appropriate
-Python skills so that you'll understand what's going on at the end of
-the chapter.
-
-\section{Mathematical background}
-
-First of all, what are the ``positive integers''? \term{Integers} are
-whole numbers: $$\Z = \mset{0, \pm 1, \pm 2, \pm 3, \dots}.$$ The
-\term{natural numbers} are the positive integers:
-$$\N = \mset{1,2,3,\dots}.$$
-
-\begin{remark}
-  Some people use $0$ as the first natural number. It doesn't matter a
-  whole not. In our case, it's more convenient to have $1$ as the
-  first natural number.
-\end{remark}
-
-\subsection{Sets}
-
-Before we go much further, I'd like to introduce the concept of a
-\term{set}. A set is a collection of objects, called \term{elements},
-with no notion of order or multiplicity. Finite sets with few elements
-are typically denoted with braces: \ctext{$\mset{1,2,3,4}$ is a set.}
-The things distinguishing sets from \term{lists} or \term{vectors}
-are:
+Our goal at the end of this chapter is to write a program that does
+the following things, in a loop:
 
 \begin{enumerate}
-\item in a set, the order in which elements appear is irrelevant;
-\item in a set, the number of times that an element appears is
-  irrelevant.
+\item Read a piece of text from the user.
+\item Print out the text but reversed.
+\item If the user inputs `exit', then the program exits, but before
+  we print out the reversed text.
 \end{enumerate}
 
-Therefore, all of the following are the same set:
+Vocabulary term: a piece of text is called a \term{string}.
+
+To print out the text, use the \code{print()} function. To read text
+input, we use the \code{input()} function. Examples:
+
+\lstpy{input-example.txt}
+
+Knowing about the function \code{input()} is a piece of trivia, that,
+in the grand scheme of things, is unimportant. However, being able to
+apply the thought process and techniques in this section to similar
+problems is very important.
+
+The broadest technique in programming is to break a problem down into
+smaller problems. Here is how I would break down this problem:
+
+\begin{enumerate}
+\item start up the program;
+\item read a string from the user using \code{input()};
+\item if the string is \code{exit}, then die;
+\item else, reverse the string;
+\item print the reversed string;
+\item go back to 2.
+\end{enumerate}
+
+There are four important concepts in my breakdown:
+
+\begin{enumerate}
+\item the \term{variable}, i.e. storing and changing a value;
+\item the \term{conditional}, i.e. if A then B else C;
+\item the \term{loop}, i.e. ``go back to 2;''
+\item a \term{subroutine}, where we delegate repetitive tasks to
+  smaller programs stored inside our main program.
+\end{enumerate}
+
+The latter three concepts are examples of \term{flow control
+  structures}. We'll learn more about them in this
+chapter. Conditional statements are broad enough that they require
+their own section.
+
+\subsection{Variables}
+
+The first thing is a variable. Most people are familiar with the
+concept of a variable from mathematics courses. In most programming
+languages, a variable can actually vary. So, for instance, in math,
+this is (more or less) nonsense:
 
 \begin{align*}
-  & \mset{1,2,3,4} \\
-  = & \mset{1,1,2,2,3,3,4,4} && \text{(Each element is duplicated).} \\
-  = & \mset{1, 3, 3, 4, 1, 4, 2} && \text{(Different order, and some duplication).}
+  a & = 2 \\
+  a & = a + 10 \\
+  a & \text{ is now equal to 12.}
 \end{align*}
 
-Given a set $A$, and an element $x$, to say \ctext{$x$ is an element
-  of $A$,} we write $$x \in A.$$ If \ctext{$x$ is not an element of
-  $A$,} then we write $$x \notin A.$$
+At the very least, it's rather uncommon. However, in most programming
+languages, it's extremely common. It's the most fundamental and common
+thing you do. Here's how we'd represent that in Python:
 
-\paragraph{Set comprehension notation.}
+\lstpy{python-var-1.txt}
 
-This notation is common:
+Every variable (indeed, every value) has a \term{type}. To get the
+type of an object in Python, you use the \code{type()} function:
 
-\begin{equation*}
-  \scomp{\text{what each element looks like}}{\text{conditions about
-      each element}}
-\end{equation*}
+\lstpy{python-types-1.txt}
 
-In Python, we have list comprehensions, which are similar:
+\begin{remark}
+  In Python, types are less important, because Python uses \term{weak
+    typing}, and \term{dynamic typing}, where Python does not actually
+  determine the type of each object until it actually runs the
+  code. However, in certain programming languages (languages with
+  \term{static typing} and \term{strong typing}), types are extremely
+  important.
 
-\lstpy{comprehensions.txt}
+  Weak typing is a fundamental weakness of Python, and indeed all
+  weakly typed languages, including Ruby. Small mental errors can
+  translate into impossible-to-find bugs in your code, that may take
+  several days to find, let alone fix. This is why I strongly prefer
+  static and strongly typed languages, such as Haskell. In Haskell,
+  most bugs are caught before you even compile the software.
 
-\subsection{Functions}
+  If you take strong typing to the extreme, you get languages like
+  Idris and Coq, where the type system is strong enough that you can
+  actually mathematically prove the correctness of your program with
+  the type system.
+\end{remark}
 
-A \term{mathematical function} takes elements from one set and maps
-them to elements in another set. For instance,
+\begin{remark}
+  Fair warning: my experience is predominantly in \term{functional}
+  programming languages, which do not have the concept of varying
+  variables. Therefore, much of the code I write will not use the
+  ``Pythonic'' method, and will instead employ a more Haskell-like
+  approach.
+\end{remark}
 
-\begin{align*}
-  f & : \N \to \N \\
-  f(x) & = x + 3
-\end{align*}
+\begin{exercise}
+  What do you suppose the types of these values are? Check your
+  guesses in the REPL:
 
-Python has things called ``functions'', but they are slightly
-different. Here's how we would define that function in Python:
+  \begin{enumerate}
+  \item \code{2 + 2}
+  \item \code{28 / 13}
+  \item \code{28 / 14}
+  \item \code{'hello, my name is joe'}
+  \end{enumerate}
+\end{exercise}
 
-\pyfile{code/x_plus_3.py}
+\begin{exercise}
+  What do you think the following program does?
 
-The difference comes down to a property called \term{referential
-  transparency}:
+  \pyfile{code/print_plus_3.py}
 
-\begin{axiom}
-  If $f : A \to B$, and $x, y \in A$, then, \ctext{if $x = y$, then
-    $f(x) = f(y)$.}
-\end{axiom}
+  \xtb{Hint}: \emph{\code{int(x)} takes any value and tries to convert
+    it to an integer. It might be worth toying around with
+    \code{int()} in the REPL.}
 
-Functions in Python do not usually have this property. For instance,
+  Try it and see.
+\end{exercise}
 
-\lstpy{random-randint.txt}
+\section{Conditionals and Boolean algebra}
 
-I called the same ``function'' with the same arguments, and got a
-different result. That cannot happen in a mathematical function.
-
-The following definitions are useful computations that we'll be using:
+Conditional statements, i.e. if/then/else, are based on
+\term{Booleans}\footnote{``Boolean'' is capitalized because it is
+  named after an English mathematician, George Boole.}.
 
 \begin{definition}
-  The \term{Cartesian product} of two sets $A$ and $B$ is the set of
-  ordered pairs where the first value is in $A$, and the second value
-  is in $B$. That is,
-  $$A \times B = \scomp{(a, b)}{a \in A, \text{ and } b \in B}.$$
+  A Boolean is either true or false.
 \end{definition}
 
-\begin{definition}
-    
-\end{definition}
+The study and manipulation of Booleans is called \term{Boolean
+  algebra}. Let's explore Booleans in Python:
 
-\subsection{Division with remainder}
+\lstpy{python-bools-1.txt}
 
-This is the way you learned to divide in elementary school. We want a
-mathematical function, that, given two positive integers $a, b \in
-\N$, returns the \term{quotient} of $a$ and $b$, plus a
-\term{remainder}, which might be $0$.
+In our goal, we want to be able to create a Boolean that tells us
+whether or not the string is `exit'.
+
+\subsection{Combining Booleans}
+
+Booleans are kind of useless unless you can
+
+\begin{enumerate}
+\item combine them to make new Booleans, and
+\item use them to determine whether or not to do something.
+\end{enumerate}
+
+There are three common ways to combine Booleans:
+
+\begin{enumerate}
+\item negation, where \code{not True = False}, and \code{not False =
+    True};
+\item an ``and'' statement, such as \code{a and b}, which is true if
+  and only if both \code{a} and \code{b} are true;
+\item an ``or'' statement, such as \code{a or b}, which is true if and
+  only if at least one of \code{a} and \code{b} is true.
+\end{enumerate}
+
+\lstpy{python-bools-1.txt}
+
+A common exercise is to build a \term{truth table} for the
+operations. I've already given you some of the answers with my example
+
+\begin{table}
+  \centering
+  \begin{tabu}{r|c|c}
+    \code{and} & \code{True} & \code{False} \\
+    \tabucline \\
+    \code{True} & \code{True} & \code{False} \\
+    \tabucline \\
+    \code{False} & & \\
+  \end{tabu}
+  \caption{Partially filled in truth table for \code{and}.}
+  \label{tbl:truth-table-and}
+\end{table}
+
+\begin{table}
+  \centering
+  \begin{tabu}{r|c|c}
+    \code{or} & \code{True} & \code{False} \\
+    \tabucline \\
+    \code{True} & & \code{True} \\
+    \tabucline \\
+    \code{False} & & \code{False} \\
+  \end{tabu}
+  \caption{Partially filled in truth table for \code{or}.}
+  \label{tbl:truth-table-or}
+\end{table}
+
+The next thing is negation:
+
+\lstpy{python-negation-1.txt}
+
+This immediately gives rise to the following lemma, which is obvious:
 
 \begin{lemma}
-  Given two positive integers $a, b \in \N$, with $a \ge b$ we can
-  always write $$a = qb + r,$$ where $q \in \N$ is the
-  \term{quotient}, and $r$ is the \term{remainder}. The remainder can
-  be zero, but it must be less than $b$. Therefore,
-  $$r \in \scomp{x \in \Z}{0 \le x < b}.$$
+  \label{thm:double-neg-bool}
+  For all Booleans \code{a}, \code{not (not a)} is equal to \code{a}.
 \end{lemma}
+
+It is not all that interesting. However, the following properties,
+called \term{De Morgan's laws}, are:
+
+\begin{lemma}
+  \label{thm:de-morgan-1}
+  For all Booleans \code{a} and \code{b}, \code{not (a and b)} is
+  equal to \code{(not a) or (not b)}.
+\end{lemma}
+
+Think about it:
+
+\begin{enumerate}
+\item I told you that I went to the park and the grocery store;
+\item but you know that I didn't go to the park, or that I didn't go
+  to the grocery store;
+\item then I lied to you.
+\end{enumerate}
+
+The converse is also true:
+
+\begin{enumerate}
+\item I told you that I didn't go to the park or I didn't go to the grocery store;
+\item but you know that I did in fact go to the park, and that I did
+  go to the grocery store;
+\item then I lied to you.
+\end{enumerate}
+
+It might help to compute a few of these values in the REPL, or just
+make a truth table (\cref{exc:de-morgan-table-1}).
+
+This corollary can be obtained by combining \cref{thm:double-neg-bool}
+and \cref{thm:de-morgan-1}:
+
+\begin{corollary}
+  \label{thm:de-morgan-2}
+  For all Booleans \code{a} and \code{b}, \code{not (a or b)} is equal
+  to \code{(not a) or (not b)}.
+\end{corollary}
+
+If you're not convinced, think about it for a second, or build a truth
+table (\cref{exc:de-morgan-table-2}).
+
+Next, we have the \term{distributive laws}:
+
+\begin{lemma}
+  For all Booleans \code{a}, \code{b}, and \code{c}, \code{a and (b or
+    c)} is equal to \code{(a and b) or (a and c)}.
+\end{lemma}
+
+This is similar to the distributive law in math, for real
+numbers: $$a(b + c) = ab + ac.$$ This is also true:
+
+\begin{lemma}
+  For all Booleans \code{a}, \code{b}, and \code{c}, \code{a or (b and
+    c)} is equal to \code{(a or b) and (a or c)}.
+\end{lemma}
+
+The analog doesn't hold in math: $$a + bc \ne (a + b)(b + c).$$
+
+\subsection{Testing for equality, and other mathematical tests}
+
+It's tiring to put ``is equal to'' every time. Instead, Python has the
+\code{==} operator:
+
+\lstpy{python-equals-equals.txt}
+
+\begin{remark}
+  It's important to note that \code{a == b} \emph{tests} to see if
+  \code{a} and \code{b} are equal, whereas \code{a = b} \emph{assigns}
+  \code{a} to whatever \code{b} is.
+\end{remark}
+
+The analog of $\ne$ is \code{!=}:
+
+\begin{lstlisting}[language=Python]
+>>> 2 != 4
+True
+>>> 2 != 2
+False
+\end{lstlisting}
+
+\Cref{tbl:math-python} might be helpful.
+
+\begin{table}
+  \centering
+  \begin{tabu}{r|l}
+    \textbf{Math} & \textbf{Python} \\
+    \tabucline \\
+    $a := b$ & \code{a = b} \\
+    $a = b$ & \code{a == b} \\
+    $a \ne b$ & \code{a != b} \\
+    $a > b$ & \code{a > b} \\
+    $a \ge b$ & \code{a >= b} \\
+    $a < b$ & \code{a < b} \\
+    $a \le b$ & \code{a <= b} \\
+  \end{tabu}
+  \caption{Mathematical statements, and their equivalent in Python}
+  \label{tbl:math-python}
+\end{table}
+
+\subsection{Exercises}
+
+\begin{exercise}
+  Fill in \cref{tbl:truth-table-and}.
+\end{exercise}
+\begin{exercise}
+  Fill in \cref{tbl:truth-table-or}.
+\end{exercise}
+\begin{exercise}
+  \label{exc:and-comm}
+  Do you think the following property is true?
+
+  \emph{For all Booleans \code{a} and \code{b}, \code{a and b} equals
+    \code{b and a}.}
+
+  Check your truth table to see.
+\end{exercise}
+\begin{exercise}
+  Do the same as \cref{exc:and-comm}, but for \code{or}.
+\end{exercise}
+\begin{exercise}
+  \label{exc:and-assoc}
+  Do you think the following property is true?
+
+  \emph{For all Booleans \code{a}, \code{b}, and \code{c} \code{a and
+      (b and c)} equals
+    \code{(a and b) and c)}.}
+
+  Constructing a truth table here would require 3 dimensions, so just
+  convince yourself whether or not it's true, maybe trying things in
+  the REPL.
+\end{exercise}
+\begin{exercise}
+  Do the same as \cref{exc:and-assoc}, but for \code{or}.
+\end{exercise}
+\begin{exercise}
+  \label{exc:de-morgan-table-1}
+  Build two truth tables for \cref{thm:de-morgan-1}. That is, build
+  one for \code{not (a and b)}, then build a separate truth table for
+  \code{(not b) or (not a)}, and then verify that they are identical.
+
+  \begin{center}
+    \begin{tabu}{r|c|c}
+      \code{not (a and b)} & \code{True} & \code{False} \\
+      \tabucline \\
+      \code{True} && \\
+      \tabucline \\
+      \code{False} && \\
+    \end{tabu}
+  \end{center}
+  \begin{center}
+    \centering
+    \begin{tabu}{r|c|c}
+      \code{(not a) or (not b)} & \code{True} & \code{False} \\
+      \tabucline \\
+      \code{True} && \\
+      \tabucline \\
+      \code{False} && \\
+    \end{tabu}
+  \end{center}
+\end{exercise}
+\begin{exercise}
+  \label{exc:de-morgan-table-2}
+  Build two truth tables for \cref{thm:de-morgan-2}, in similar fashion
+  to \cref{exc:de-morgan-table-1}:
+
+  \begin{center}
+    \centering
+    \begin{tabu}{r|c|c}
+      \code{not (a or b)} & \code{True} & \code{False} \\
+      \tabucline \\
+      \code{True} && \\
+      \tabucline \\
+      \code{False} && \\
+    \end{tabu}
+  \end{center}
+
+  \begin{center}
+    \centering
+    \begin{tabu}{r|c|c}
+      \code{(not a) and (not b)} & \code{True} & \code{False} \\
+      \tabucline \\
+      \code{True} && \\
+      \tabucline \\
+      \code{False} && \\
+    \end{tabu}
+  \end{center}
+\end{exercise}
+\begin{exercise}
+  Write a program that takes a number (via \code{input()}), and prints
+  out whether or not it's greater than $34$.
+\end{exercise}
+
+\section{If/then/else}
+
+Now that you understand what Booleans are, we need to be able to
+instruct Python to
+
+\begin{enumerate}
+\item given a Boolean \code{b};
+\item if \code{b} is true, do something;
+\item if \code{b} is false, do something else.
+\end{enumerate}
+
+In Python, this is achieved via the \code{if} clause. The general
+syntax is
+
+\begin{lstlisting}[language=Python]
+if b:
+    # do something here
+else:
+    # do something different
+\end{lstlisting}
+
+The \code{#} represents a comment, which is ignored.
+
+\begin{remark}
+  The above is not valid code, because you'd need actual code inside
+  the \code{if} and \code{else} blocks, rather than just a comment.
+\end{remark}
+
+\begin{remark}
+  Please note the trailing colons after \code{if b} and
+  \code{else}. It's really easy to forget them.
+\end{remark}
+
+Let's look at a simple program that takes in two numbers from the
+user, and checks if their sum is $20$.
+
+\pyfile{code/sum_is_twenty.py}
+
+Here's an example input:
+
+\lstin{sum_is_twenty.txt}
+
+Often times, if the first condition fails to be true, you'll want to
+test for other conditions inside the \code{else} block:
+
+\begin{lstlisting}[language=Python]
+if b1:
+    # do something here
+else:
+    # more conditions
+    if b2:
+        # do something here
+    else:
+        # more conditions
+      if b3:
+          # do something here
+      else:
+          # ...
+\end{lstlisting}
+
+This situation is rather common, so instead we have \code{elif}:
+
+\begin{lstlisting}[language=Python]
+if b1:
+    # do something here
+elif b2:
+    # do something here
+elif b3:
+    # do something here
+# ...
+else:
+    # finally, if everything fails, here
+\end{lstlisting}

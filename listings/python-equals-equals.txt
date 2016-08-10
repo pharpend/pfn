@@ -1,0 +1,8 @@
+>>> 2 == 2
+True
+>>> 2 == 2.0
+True
+>>> 2 + 2 == 4
+True
+>>> True or False == False or False
+True

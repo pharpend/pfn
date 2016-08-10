@@ -1,0 +1,122 @@
+\chapter{The greatest common divisor}
+
+Our goal at the end of this chapter is to write a function that
+computes the greatest common divisor of two positive integers. I'll
+try to develop the appropriate math background, and the appropriate
+Python skills so that you'll understand what's going on at the end of
+the chapter.
+
+\section{Mathematical background}
+
+First of all, what are the ``positive integers''? \term{Integers} are
+whole numbers: $$\Z = \mset{0, \pm 1, \pm 2, \pm 3, \dots}.$$ The
+\term{natural numbers} are the positive integers:
+$$\N = \mset{1,2,3,\dots}.$$
+
+\begin{remark}
+  Some people use $0$ as the first natural number. It doesn't matter a
+  whole not. In our case, it's more convenient to have $1$ as the
+  first natural number.
+\end{remark}
+
+\subsection{Sets}
+
+Before we go much further, I'd like to introduce the concept of a
+\term{set}. A set is a collection of objects, called \term{elements},
+with no notion of order or multiplicity. Finite sets with few elements
+are typically denoted with braces: \ctext{$\mset{1,2,3,4}$ is a set.}
+The things distinguishing sets from \term{lists} or \term{vectors}
+are:
+
+\begin{enumerate}
+\item in a set, the order in which elements appear is irrelevant;
+\item in a set, the number of times that an element appears is
+  irrelevant.
+\end{enumerate}
+
+Therefore, all of the following are the same set:
+
+\begin{align*}
+  & \mset{1,2,3,4} \\
+  = & \mset{1,1,2,2,3,3,4,4} && \text{(Each element is duplicated).} \\
+  = & \mset{1, 3, 3, 4, 1, 4, 2} && \text{(Different order, and some duplication).}
+\end{align*}
+
+Given a set $A$, and an element $x$, to say \ctext{$x$ is an element
+  of $A$,} we write $$x \in A.$$ If \ctext{$x$ is not an element of
+  $A$,} then we write $$x \notin A.$$
+
+\paragraph{Set comprehension notation.}
+
+This notation is common:
+
+\begin{equation*}
+  \scomp{\text{what each element looks like}}{\text{conditions about
+      each element}}
+\end{equation*}
+
+In Python, we have list comprehensions, which are similar:
+
+\lstpy{comprehensions.txt}
+
+\subsection{Functions}
+
+A \term{mathematical function} takes elements from one set and maps
+them to elements in another set. For instance,
+
+\begin{align*}
+  f & : \N \to \N \\
+  f(x) & = x + 3
+\end{align*}
+
+Python has things called ``functions'', but they are slightly
+different. Here's how we would define that function in Python:
+
+\pyfile{code/x_plus_3.py}
+
+The difference comes down to a property called \term{referential
+  transparency}:
+
+\begin{axiom}
+  \label{foo}
+  If $f : A \to B$, and $x, y \in A$, then, \ctext{if $x = y$, then
+    $f(x) = f(y)$.}
+\end{axiom}
+
+Functions in Python do not usually have this property. For instance,
+
+\lstpy{random-randint.txt}
+
+I called the same ``function'' with the same arguments, and got a
+different result. That cannot happen in a mathematical function.
+
+The following definitions are useful computations that we'll be using:
+
+\begin{definition}
+  The \term{Cartesian product} of two sets $A$ and $B$ is the set of
+  ordered pairs where the first value is in $A$, and the second value
+  is in $B$. That is,
+  $$A \times B = \scomp{(a, b)}{a \in A, \text{ and } b \in B}.$$
+\end{definition}
+
+\begin{definition}
+    
+\end{definition}
+
+\subsection{Division with remainder}
+
+This is the way you learned to divide in elementary school. We want a
+mathematical function, that, given two positive integers $a, b \in
+\N$, returns the \term{quotient} of $a$ and $b$, plus a
+\term{remainder}, which might be $0$.
+
+\begin{lemma}
+  Given two positive integers $a, b \in \N$, with $a \ge b$ we can
+  always write $$a = qb + r,$$ where $q \in \N$ is the
+  \term{quotient}, and $r$ is the \term{remainder}. The remainder can
+  be zero, but it must be less than $b$. Therefore,
+  $$r \in \scomp{x \in \Z}{0 \le x < b}.$$
+\end{lemma}
+
+
+See \cref{foo}.

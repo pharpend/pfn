@@ -1,0 +1,8 @@
+>>> True and True
+True
+>>> True and False
+False
+>>> True or False
+True
+>>> False or False
+False

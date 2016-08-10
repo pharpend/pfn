@@ -1,0 +1,8 @@
+>>> type(20)
+<class 'int'>
+>>> type(a)
+<class 'int'>
+>>> type('the quick brown fox')
+<class 'str'>
+>>> type(20.02)
+<class 'float'>
