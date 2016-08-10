@@ -1,0 +1,3 @@
+>>> help(len)     # pulls up documentation for len()
+>>> help(range)   # pulls up documentation for range()
+>>> help(abs)     # pulls up documentation for abs()

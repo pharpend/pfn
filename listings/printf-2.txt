@@ -1,0 +1,5 @@
+>>> import math
+>>> x = math.pi
+>>> y = math.e
+>>> print('here is x: %08.4f; here is y: %07.3f' % (x, y))
+here is x: 003.1416; here is y: 002.718

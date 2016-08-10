@@ -1,4 +1,4 @@
-\chapter{Standard IO}
+\chapter{Basics}
 
 Our goal at the end of this chapter is to write a program that does
 the following things, in a loop:
@@ -886,6 +886,42 @@ This left-inclusive behavior is kind of confusing, but there's nothing
 I can really do about it. If you reference \code{x[i:j]} with
 $i \ge j$, then you get an empty list.
 
+You can extend the range syntax a little further, and insert a
+``step'', meaning have it jump more than 1 spot at a time:
+
+\begin{lstlisting}[language=Python]
+>>> x = 'hello world'
+>>> x[::]
+'hello world'
+>>> x[::2]
+'hlowrd'
+>>> x[::3]
+'hlwl'
+>>> x[::4]
+'hor'
+\end{lstlisting}
+
+A step of $1$ works exactly as you'd expect
+
+\begin{lstlisting}[language=Python]
+>>> x[::1]
+'hello world'
+\end{lstlisting}
+
+You can have the step be negative to work backward.
+
+\begin{lstlisting}[language=Python]
+>>> x[::-1]
+'dlrow olleh'
+>>> x[::-2]
+'drwolh'
+>>> x[::-3]
+'dooe'
+>>> 
+\end{lstlisting}
+
+(Hint: this is how we'll reverse the list later on).
+
 To get the length of a list (or a string), use \code{len()}:
 
 \lstin{lists-05.txt}
@@ -906,6 +942,7 @@ same type:
 To test if a value is an element of the list, use \code{in}:
 
 \lstin{lists-09.txt}
+
 
 \subsection{Exercises}
 
@@ -1043,8 +1080,96 @@ I'll go through one example, then give you some exercises
   \label{fig:array_count9-2}
 \end{figure}
 
+
 \subsection{Exercises}
 
 \cbex{http://codingbat.com/prob/p118366}{string_splosion}
 \cbex{http://codingbat.com/prob/p110166}{array_front9}
 \cbex{http://codingbat.com/prob/p170842}{double_char}
+
+\section{Extraneous information}
+
+Here are some things that will be useful down the line, and that we're
+going to use now, and in the future. They don't naturally fit in
+anywhere in the book.
+
+\begin{enumerate}
+\item In the REPL, you can summon documentation via the \code{help()}
+  function:
+
+  \lstpy{help.txt}
+\item You can also find that documentation online.
+\item Python supports \code{printf}-style formatting. For instance, if
+  I want to tell Python to print the integer variable \code{x} with at
+  least 4 spaces, with leading zeroes:
+
+  \lstin{printf-formatting.txt}
+
+  There are way too many printf options for me to exhaustively
+  document. However, you can read \code{man printf} to get an idea of
+  what each of the control characters does. The syntax in Python is a
+  bit different. For instance, 
+
+  \lstin{printf-2.txt}
+
+\item You're not actually supposed to use \code{printf}-style
+  formatting in Python 3 anymore. I can't figure out the new system,
+  and I don't program in Python enough to care. Nonetheless,
+  \code{printf}-style formatting still works. More importantly, most
+  languages have \code{printf}-style formatting, so it's a good skill
+  to pick up.
+
+\item The thing that looked like a list, but with parentheses instead
+  of square brackets, is called a \term{tuple}. In Python, they behave
+  like lists, but have some stupid properties that sometimes make them
+  a pain to deal with.
+
+\item In mathematics, there's a huge difference between tuples,
+  vectors, and sets. Python sort of has a difference between (the
+  respective Python equivalents of) all of these, but the distinction
+  is less clear.
+\item Strings can use double quotes: \code{"..."} or single quotes:
+  \code{'...'}. It only matters if you have a string with either
+  character inside of the string, in which case you can \code{escape}
+  it, by putting a backslash before the character. For instance,
+
+  \lstpy{single-double-quotes.py}
+
+\item There are a variety of ``escape'' sequences, which you can use
+  to put weird characters in a string. See \cref{tbl:escape-chars} for
+  more information.
+
+  \begin{table}
+    \centering
+    \begin{tabu}{r|l}
+      \xtb{Python} & \xtb{Meaning} \\
+      \tabucline \\
+      \code{\\n} & New line (also called ``line feed'') \\
+      \code{\\t} & Tabulator character \\
+      \code{\\r} & Carriage return (go to the beginning of the line) \\
+    \end{tabu}
+    \caption{A non-exhaustive list of escape characters. These are the
+      only ones you'll ever use, though.}
+    \label{tbl:escape-chars}
+  \end{table}
+\end{enumerate}
+
+Okay, I believe we're now ready to tackle the original problem:
+
+\begin{quotation}
+  Our goal at the end of this chapter is to write a program that does
+  the following things, in a loop:
+
+  \begin{enumerate}
+  \item Read a piece of text from the user.
+  \item Print out the text but reversed.
+  \item If the user inputs `exit', then the program exits, but before
+    we print out the reversed text.
+  \end{enumerate}
+\end{quotation}
+
+Cool! This is super easy now, right? Here's my solution:
+
+\pyfile{code/ch02goal.py}
+
+Type it in yourself, and verify that it works as expected.

@@ -1,0 +1,3 @@
+>>> x = 10
+>>> print('here is x: %04d' % x)
+here is x: 0010

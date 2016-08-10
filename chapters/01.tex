@@ -29,6 +29,117 @@ CodingBat (\url{http://codingbat.com/python}) has excellent Python
 exercises, and it checks to make sure your solutions are correct. Many
 of the exercises are just links to exercises on CodingBat.
 
+\section{Getting help}
+
+There are a number of things you should know before we go much
+further:
+
+\begin{enumerate}
+\item 90\% of your problems will be solved by Googling the error
+  message.
+\item You should learn to read and recognize common error messages.
+\item If you are wondering ``what happens if I do X'', try it and see.
+\end{enumerate}
+
+\paragraph{Internet Relay Chat.}
+
+Internet Relay Chat, or IRC, is essentially text-based internet
+instant chat rooms. You pick a username (called a ``nick''), and join
+a chatroom (called a ``channel''), and then talk to some people
+there. Channel names usually start with one or two \# symbols. If you
+need help, and Googling your problem hasn't yielded any solutions,
+someone on IRC might be able to help.
+
+There are two ways to connect to IRC:
+
+\begin{enumerate}
+\item through a web-based client (analog: going to gmail.com), or
+\item through a program on your computer, called an ``IRC client''
+  (analog: Thunderbird or Outlook).
+\end{enumerate}
+
+There are several IRC networks, and each network has hundreds of
+channels. The most popular network is FreeNode, which is where you
+should go to get help. Here are some channels I would suggest:
+
+\begin{enumerate}
+\item \#learnprogramming is full of grumpy people, but they can be
+  very helpful. I'd recommend this channel. I go by ``pharpend'' in
+  this channel, and elsewhere.
+\item \#python is for Python-specific help.
+\item \#\#programming is where you should go only if you are truly
+  desperate. That community is just awful.
+\end{enumerate}
+
+Here's how you connect to FreeNode through the two methods:
+
+\begin{description}
+\item[Method 1: web-based client.] Head over to
+  \url{http://webchat.freenode.net/}, then pick a nickname, and one or
+  more of the channels I suggested. See \cref{fig:freenode-webchat}.
+
+  KiwiIRC (\url{https://kiwiirc.com/client}) is popular, and has a
+  much more pleasant interface than FreeNode's webchat program. See
+  \cref{fig:kiwiirc}.
+
+\item[Method 2: local client.] There are several local clients to
+  choose from:
+
+  \begin{enumerate}
+  \item HexChat (\url{https://hexchat.github.io/}) is a solid choice.
+  \item I personally use WeeChat (\url{http://weechat.org/}), however,
+    it's not the most newbie-friendly client out there.
+  \item Irssi (\url{https://irssi.org/}) is along the same lines as
+    WeeChat.
+  \end{enumerate}
+
+  I'll give a small demonstration for connecting with HexChat:
+
+  \begin{enumerate}
+  \item When you open HexChat, it will ask for a network to connect
+    to. FreeNode should be one of the options. Pick FreeNode. See
+    \cref{fig:hexchat01}.
+  \item Next, you should get a popup asking what channel to connect
+    to. Pick whichever one you want. See \cref{fig:hexchat02}.
+  \item Then, talk in the channel. See \cref{fig:hexchat03}.
+  \end{enumerate}
+\end{description}
+
+\begin{figure}
+  \centering
+  \answergraph{images/freenode-webchat.png}
+  \caption{FreeNode webchat}
+  \label{fig:freenode-webchat}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \answergraph{images/kiwiirc.png}
+  \caption{KiwiIRC}
+  \label{fig:kiwiirc}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \answergraph{images/hexchat01.png}
+  \caption{HexChat network choice}
+  \label{fig:hexchat01}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \answergraph{images/hexchat02.png}
+  \caption{HexChat channel choice}
+  \label{fig:hexchat02}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \answergraph{images/hexchat03.png}
+  \caption{HexChat with \#learnprogramming loaded.}
+  \label{fig:hexchat03}
+\end{figure}
+
 \section{Getting set up}
 
 You will want to install all of these things:
@@ -143,7 +254,7 @@ Python will prompt you for another line of code.\footnote{The
   doesn't actually mean anything.
 \end{remark}
 
-\subsection{Saving in files}
+\section{Saving in files}
 
 You can type entire programs into the REPL, and it will evaluate
 them. However, you will usually want to save them in a file, so you
