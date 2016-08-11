@@ -28,6 +28,84 @@ We can verify this in the REPL:
 
 \lstpy{1to5-sets-lists.txt}
 
+In Python, to say that $1$ is in the set $\mset{1,2,3,4,5}$, we write
+
+\lstpy{1-in-1to5.txt}
+
+In math, we write $$1 \in \mset{1,2,3,4,5}.$$
+
+In math, we have the notions of \term{subsets} and
+\term{supersets}. That is,
+
+\begin{definition}
+  $X$ is a subset of $Y$, written $X \subof Y$, if and only if
+  \ctext{for all $x \in X$, $x \in Y$.}
+\end{definition}
+
+\begin{definition}
+  $X$ is a proper subset of $Y$, written $X \psubof Y$, if and only if
+  \ctext{for all $x \in X$, $x \in Y$;} and, there is some $y \in Y$
+  such that $y \notin X$.
+\end{definition}
+
+The Python analogues for sets are \code{<=} and \code{<},
+respectively.
+
+\begin{remark}
+  The symbol $\subset$ is more popular, but kind of ambiguous. It
+  \emph{usually} refers to improper subsets. However, the symbols
+  $\subof$ and $\psubof$ are unambiguous, so I'll use those.
+\end{remark}
+
+For instance, $$\mset{2,3,4} \subof \mset{1,2,3,4,5}.$$ In Python,
+this is
+
+\lstpy{subof.txt}
+
+\begin{remark}
+  Sets in math are actually much more closely related to \emph{types},
+  rather than lists. Why this is the case is largely beyond the scope
+  of this book. It is worth mentioning, though.
+\end{remark}
+
+\term{Supersets} are defined analogously:
+
+\begin{definition}
+  $X$ is a superset of $Y$, written $$X \supof Y,$$ if and only if
+  $Y \subof X$.
+\end{definition}
+
+\begin{definition}
+  $X$ is a proper superset of $Y$, written $$X \psupof Y,$$ if and
+  only if $Y \psubof X$.
+\end{definition}
+
+Set equality is defined as two sets containing precisely the same
+elements. In other words,
+
+\begin{definition}
+  Given two sets $X$ and $Y$, $X$ is equal to $Y$, written $$X = Y,$$
+  if and only if \ctext{$X \subof Y$ and $X \supof Y$.}
+\end{definition}
+
+Much like lists, there is a set containing no elements, called the
+\term{null set}. The symbol varies from book to book, but it's usually
+one of $\emptyset$, $\varnothing$, $\phi$, or some variant
+thereof. I'm going to use $\emptyset$, because it's the most standard.
+
+\subsection{Combining sets}
+
+There are three common ways to combine sets to create new sets:
+
+\begin{enumerate}
+\item the \term{union} of two sets, where you take elements that are
+  in either set (or both);
+\item the \term{intersection} of two sets, where you take elements
+  that are in both sets;
+\item the \term{difference} of two sets, where you take elements that
+  are in one set, but not the other.
+\end{enumerate}
+
 \section{Mathematical background}
 
 First of all, what are the ``positive integers''? \term{Integers} are
