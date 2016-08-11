@@ -6,6 +6,35 @@ try to develop the appropriate math background, and the appropriate
 Python skills so that you'll understand what's going on at the end of
 the chapter.
 
+\paragraph{Why should I care about the greatest common divisor? That
+  sounds like a really boring problem.}
+
+One word: cryptography. Later in the book, I'll explain how some
+modern cryptography systems work. It's not immediately clear right
+now, but being able to quickly find the greatest common divisor of two
+numbers is extremely important.
+
+The na\"ive approach is to simply factor the two numbers, and then
+pick the greatest common divisor. However, there is no known efficient
+algorithm for factoring numbers. So, for very large numbers, this
+quickly becomes unfeasible. Factoring is such a difficult problem,
+that many modern cryptography protocols are designed around the fact
+that factoring large numbers is extremely difficult.
+
+There is an algorithm for efficiently computing the greatest common
+divisor of two numbers, called the \term{Euclidean algorithm}. In this
+chapter, I'll ``derive'' it, and prove that it indeed converges to the
+greatest common divisor.
+
+Here is the rough order in which I'm going to attack the problem:
+
+\begin{enumerate}
+\item explain sets and functions from a mathematical perspective,
+\item define the natural numbers,
+\item devise an algorithm for division with remainder, and finally
+\item ``derive'' the Euclidean algorithm.
+\end{enumerate}
+
 \section{Sets}
 
 Sets are kind of like lists. There are a couple of critical
