@@ -6,6 +6,28 @@ try to develop the appropriate math background, and the appropriate
 Python skills so that you'll understand what's going on at the end of
 the chapter.
 
+\section{Sets}
+
+Sets are kind of like lists. There are a couple of critical
+differences:
+
+\begin{enumerate}
+\item in sets, the order in which elements appear does not matter;
+\item in sets, the number of times an element appears does not matter.
+\end{enumerate}
+
+For small enough sets, you can list the elements in curly braces:
+
+\begin{align*}
+  \mset{1,2,3,4,5} & \text{ is a set;} \\
+  \mset{3,2,5,1,4} & \text{ is the same set;} \\
+  \mset{3,5,4,1,2,3,5} & \text{ is also the same set.}
+\end{align*}
+
+We can verify this in the REPL:
+
+\lstpy{1to5-sets-lists.txt}
+
 \section{Mathematical background}
 
 First of all, what are the ``positive integers''? \term{Integers} are
